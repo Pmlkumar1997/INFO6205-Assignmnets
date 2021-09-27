@@ -86,7 +86,6 @@ public class Benchmark_Timer_InsertionSort {
            
             String desc = "Insertion sort for partially sorted array of size: " + n;
             Supplier<Integer[]> supplier = () -> partialArray(n);
-            supplier = () -> partialArray(n);
             benchmarkTest(n, desc, supplier);
             
             desc = "Insertion sort for randomly sorted array of size: " + n;
