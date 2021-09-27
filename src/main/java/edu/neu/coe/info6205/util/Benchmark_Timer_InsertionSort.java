@@ -82,10 +82,10 @@ public class Benchmark_Timer_InsertionSort {
     public static void main(String[] args) {
 
 
-           int n = 10000;
+           int n = 50000;
            
             String desc = "Insertion sort for partially sorted array of size: " + n;
-            Supplier<Integer[]> supplier = () -> sortedArray(n);
+            Supplier<Integer[]> supplier = () -> partialArray(n);
             supplier = () -> partialArray(n);
             benchmarkTest(n, desc, supplier);
             
@@ -94,6 +94,7 @@ public class Benchmark_Timer_InsertionSort {
             benchmarkTest(n, desc, supplier);
             
             desc = "Insertion sort for a sorted array of size: " + n;
+            supplier = () -> sortedArray(n);
             benchmarkTest(n, desc, supplier);
 
             desc = "Insertion sort for reverse sorted array of size: " + n;
