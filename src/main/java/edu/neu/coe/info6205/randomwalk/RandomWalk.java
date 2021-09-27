@@ -21,6 +21,8 @@ public class RandomWalk {
      */
     private void move(int dx, int dy) {
         // TO BE IMPLEMENTED
+    	x = x + dx;
+    	y = y + dy;
     }
 
     /**
@@ -30,6 +32,10 @@ public class RandomWalk {
      */
     private void randomWalk(int m) {
         // TO BE IMPLEMENTED
+    	for (int i=0; i<m; i++)
+    	{
+    		randomMove();
+    	}
     }
 
     /**
@@ -49,7 +55,11 @@ public class RandomWalk {
      */
     public double distance() {
         // TO BE IMPLEMENTED
-        return 0;
+    	double Distance_travelled ;
+    	
+    	Distance_travelled = Math.sqrt((Math.pow(x, 2)+ Math.pow(y,2)));
+    	return Distance_travelled;
+        
     }
 
     /**
