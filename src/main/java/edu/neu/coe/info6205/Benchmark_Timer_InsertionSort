@@ -56,7 +56,7 @@ public class Benchmark_Timer_InsertionSort {
 
     public static Integer[] reverseArray(int n){
 
-        Integer[] a = new Integer[N];
+        Integer[] a = new Integer[n];
         for(int i = 0; i<n;i++){
             a[i] = n-i;
         }
