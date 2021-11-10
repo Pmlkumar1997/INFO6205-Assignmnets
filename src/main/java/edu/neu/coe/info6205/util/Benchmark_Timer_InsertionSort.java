@@ -1,5 +1,6 @@
 package edu.neu.coe.info6205.util;
 
+
 import edu.neu.coe.info6205.sort.BaseHelper;
 import edu.neu.coe.info6205.sort.GenericSort;
 import edu.neu.coe.info6205.sort.Helper;
@@ -16,60 +17,56 @@ public class Benchmark_Timer_InsertionSort {
 
 
     private static Config config;
-    public static Integer[] partialArray(int n){
+    public static Integer[] createSortedArray(int N){
+
+        Integer[] arr = new Integer[N];
+        for(int i = 1; i<=N;i++){
+            arr[i-1] = i;
+        }
+        return arr;
+    }
+
+    public static Integer[] createReverseSortedArray(int N){
+
+        Integer[] arr = new Integer[N];
+        for(int i = 0; i<N;i++){
+            arr[i] = N-i;
+        }
+        return arr;
+    }
+    public static Integer[] createRandomArray(int N){
 
 
         Random rand = new Random();
-        Integer[] a = new Integer[n];
-        for (int i = 0; i<n/2; i++){
-            a[i] = i;
+        Integer[] arr = new Integer[N];
+        for(int i = 0; i<N;i++){
+            arr[i] = rand.nextInt(N);
         }
-
-        for (int i = n/2; i<n; i++){
-
-            a[i] =  rand.nextInt(n) + n/2;
-        }
-
-        return a;
+        return arr;
     }
-    
-    public static Integer[] randomArray(int n){
+    public static Integer[] createPartiallySortedArray(int N){
 
 
         Random rand = new Random();
-        Integer[] a = new Integer[n];
-        for(int i = 0; i<n;i++){
-            a[i] = rand.nextInt(n);
+        Integer[] arr = new Integer[N];
+        for (int i = 0; i<N/2; i++){
+            arr[i] = i;
         }
-        return a;
-    }
-    
-   
-    public static Integer[] sortedArray(int n){
 
-        Integer[] a = new Integer[n];
-        for(int i = 1; i<=n;i++){
-            a[i-1] = i;
+        for (int i = N/2; i<N; i++){
+
+            arr[i] =  rand.nextInt(N) + N/2;
         }
-        return a;
+
+        return arr;
     }
 
-    public static Integer[] reverseArray(int n){
+    public static void runBenchmarkTest(int N, String description, Supplier<Integer[]> supplier){
 
-        Integer[] a = new Integer[n];
-        for(int i = 0; i<n;i++){
-            a[i] = n-i;
-        }
-        return a;
-    }
-    
-
-    public static void benchmarkTest(int n, String desc, Supplier<Integer[]> supplier){
-
-        Helper<Integer> helper = new BaseHelper<>(desc, n, config);
+        Helper<Integer> helper = new BaseHelper<>(description, N, config);
         final GenericSort<Integer> sort = new InsertionSort<>(helper);
         final Benchmark<Integer[]> benchmark = new Benchmark_Timer<>(
-                desc ,
+                description ,
                 (xs) -> Arrays.copyOf(xs, xs.length),
                 sort::sort,
                 null
@@ -82,26 +79,30 @@ public class Benchmark_Timer_InsertionSort {
     public static void main(String[] args) {
 
 
-           int n = 50000;
+           int N = 10000;
            
-            String desc = "Insertion sort for partially sorted array of size: " + n;
-            Supplier<Integer[]> supplier = () -> partialArray(n);
-            benchmarkTest(n, desc, supplier);
-            
-            desc = "Insertion sort for randomly sorted array of size: " + n;
-            supplier = () -> randomArray(n);
-            benchmarkTest(n, desc, supplier);
-            
-            desc = "Insertion sort for a sorted array of size: " + n;
-            supplier = () -> sortedArray(n);
-            benchmarkTest(n, desc, supplier);
 
-            desc = "Insertion sort for reverse sorted array of size: " + n;
-            supplier = () -> reverseArray(n);
-            benchmarkTest(n, desc, supplier);
-            
+            String description = "Insertion sort for sorted array of size: " + N;
+            Supplier<Integer[]> supplier = () -> createSortedArray(N);
+            runBenchmarkTest(N, description, supplier);
+
+            description = "Insertion sort for reversely sorted array of size: " + N;
+            supplier = () -> createReverseSortedArray(N);
+            runBenchmarkTest(N, description, supplier);
+
+            description = "Insertion sort for random numbers in a array of size: " + N;
+            supplier = () -> createRandomArray(N);
+            runBenchmarkTest(N, description, supplier);
+
+            description = "Insertion sort for partially sorted array of size: " + N;
+            supplier = () -> createPartiallySortedArray(N);
+            runBenchmarkTest(N, description, supplier);
+
+        
 
 
     }
+
+
 
 }
