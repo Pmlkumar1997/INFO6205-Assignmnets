@@ -22,7 +22,7 @@ public class Main {
         ParSort.myPool = new ForkJoinPool(threads);
         System.out.println("Degree of parallelism: " + ParSort.myPool.getParallelism());
         Random random = new Random();
-        int[] array = new int[2000000];
+        int[] array = new int[2000];
         ArrayList<Long> timeList = new ArrayList<>();
         for (int j = 1; j < 20; j++) {
             ParSort.cutoff = 100 * (j + 1);
